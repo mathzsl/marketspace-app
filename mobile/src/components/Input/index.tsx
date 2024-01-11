@@ -26,7 +26,7 @@ const Input = forwardRef<TextInput, InputProps>(
       <Container isFocused={isFocused}>
         <StyledTextInput
           ref={ref}
-          secureTextEntry={showPassword}
+          secureTextEntry={!showPassword}
           onBlur={() => setIsFocused(false)}
           onFocus={() => setIsFocused(true)}
           {...rest}
