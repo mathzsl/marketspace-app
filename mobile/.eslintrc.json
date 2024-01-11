@@ -1,0 +1,7 @@
+{
+  "extends": "@rocketseat/eslint-config/react",
+  "rules": {
+    "camelcase": "off",
+    "@typescript-eslint/no-empty-interface": "off"
+  }
+}
