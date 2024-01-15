@@ -17,8 +17,17 @@ import {
 import { Input } from '@components/Input'
 import { Button } from '@components/Button'
 
+import { useNavigation } from '@react-navigation/native'
+import { AuthNavigatorRoutesProps } from '@components/routes/auth.routes'
+
 export function SignIn() {
   const passwordInputRef = useRef<TextInput>(null)
+
+  const navigation = useNavigation<AuthNavigatorRoutesProps>()
+
+  function handleNavigateToSignUp() {
+    navigation.navigate('signUp')
+  }
 
   return (
     <Container>
@@ -51,7 +60,11 @@ export function SignIn() {
 
         <Footer>
           <Label>Ainda não tem acesso?</Label>
-          <Button title="Criar uma conta" variant="primary" />
+          <Button
+            title="Criar uma conta"
+            variant="primary"
+            onPress={handleNavigateToSignUp}
+          />
         </Footer>
       </ScrollView>
     </Container>
