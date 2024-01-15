@@ -1,3 +1,4 @@
+import { Text } from '@components/Typography'
 import styled, { css } from 'styled-components/native'
 
 type StyledProps = {
@@ -23,8 +24,11 @@ export const Container = styled.View<StyledProps>`
 
   flex-direction: row;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 `
+
+export const Prefix = styled(Text)``
+
 export const TextInput = styled.TextInput.attrs(({ theme }) => ({
   placeholderTextColor: theme.colors.gray_400,
 }))`

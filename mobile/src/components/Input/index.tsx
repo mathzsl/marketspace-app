@@ -1,18 +1,20 @@
 import { forwardRef, useState } from 'react'
 
 import { TextInput, TextInputProps, TouchableOpacity } from 'react-native'
-import { Container, TextInput as StyledTextInput } from './styles'
+import { Container, Prefix, TextInput as StyledTextInput } from './styles'
 
 import { useTheme } from 'styled-components/native'
 
 import { Eye, EyeClosed } from 'phosphor-react-native'
 
 type InputProps = TextInputProps & {
+  prefix?: string
   isPassword?: boolean
+  errorMessage?: string
 }
 
 const Input = forwardRef<TextInput, InputProps>(
-  ({ isPassword = false, ...rest }, ref) => {
+  ({ prefix, isPassword = false, ...rest }, ref) => {
     const [showPassword, setShowPassword] = useState(false)
     const [isFocused, setIsFocused] = useState(false)
 
@@ -24,6 +26,8 @@ const Input = forwardRef<TextInput, InputProps>(
 
     return (
       <Container isFocused={isFocused}>
+        {prefix && <Prefix>{prefix}</Prefix>}
+
         <StyledTextInput
           ref={ref}
           secureTextEntry={!showPassword}
