@@ -1,24 +1,30 @@
-import { ArrowRight, Tag } from 'phosphor-react-native'
-import { Container, HStack, InfoBox, Label, MyAds, NumberOfAds } from './styles'
 import { useTheme } from 'styled-components/native'
-import { TouchableOpacityProps } from 'react-native'
+import { Container, HStack, InfoBox, Label, MyAds, NumberOfAds } from './styles'
 
-type MyAdsCardButtonProps = TouchableOpacityProps & {
-  numberOfAds: number
+import { ArrowRight, Tag } from 'phosphor-react-native'
+
+import { useNavigation } from '@react-navigation/native'
+import { TabNavigatorRoutesProps } from '@routes/tab.routes'
+
+type MyAdsCardButtonProps = {
+  activeAds: number
 }
 
-export function MyAdsCardButton({
-  numberOfAds,
-  ...rest
-}: MyAdsCardButtonProps) {
+export function MyAdsCardButton({ activeAds }: MyAdsCardButtonProps) {
   const { colors } = useTheme()
 
+  const navigation = useNavigation<TabNavigatorRoutesProps>()
+
+  function handleGoToMyProducts() {
+    navigation.navigate('myAds')
+  }
+
   return (
-    <Container activeOpacity={0.7} {...rest}>
+    <Container activeOpacity={0.7} onPress={handleGoToMyProducts}>
       <Tag size={22} color={colors.blue_700} />
 
       <InfoBox>
-        <NumberOfAds>{numberOfAds}</NumberOfAds>
+        <NumberOfAds>{activeAds}</NumberOfAds>
         <Label>anúncios ativos</Label>
       </InfoBox>
 
