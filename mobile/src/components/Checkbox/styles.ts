@@ -1,13 +1,8 @@
 import { Text } from '@components/Typography'
 import styled from 'styled-components/native'
 
-type StyledProps = {
-  isChecked: boolean
-}
-
 export const Container = styled.View`
   flex: 1;
-  background-color: blue;
 `
 
 export const CheckLabel = styled.View`
