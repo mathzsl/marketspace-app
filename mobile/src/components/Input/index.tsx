@@ -1,7 +1,12 @@
 import { forwardRef, useState } from 'react'
 
-import { TextInput, TextInputProps, TouchableOpacity } from 'react-native'
-import { Container, Prefix, TextInput as StyledTextInput } from './styles'
+import { TextInput, TextInputProps, TouchableOpacity, View } from 'react-native'
+import {
+  Container,
+  ErrorMessage,
+  Prefix,
+  TextInput as StyledTextInput,
+} from './styles'
 
 import { useTheme } from 'styled-components/native'
 
@@ -9,43 +14,51 @@ import { Eye, EyeClosed } from 'phosphor-react-native'
 
 type InputProps = TextInputProps & {
   prefix?: string
-  isPassword?: boolean
-  errorMessage?: string
+  errorMessage?: string | null
 }
 
 const Input = forwardRef<TextInput, InputProps>(
-  ({ prefix, isPassword = false, ...rest }, ref) => {
-    const [showPassword, setShowPassword] = useState(false)
+  ({ prefix, errorMessage, secureTextEntry, ...rest }, ref) => {
+    const [passwordIsVisible, setPasswordIsVisible] = useState(false)
     const [isFocused, setIsFocused] = useState(false)
 
     const { colors } = useTheme()
 
-    function onShowPassword() {
-      setShowPassword((prevState) => !prevState)
+    function handleToggleVisiblePassword() {
+      setPasswordIsVisible((prevState) => !prevState)
     }
 
     return (
-      <Container isFocused={isFocused}>
-        {prefix && <Prefix>{prefix}</Prefix>}
+      <View style={{ gap: 2 }}>
+        <Container isFocused={isFocused}>
+          {prefix && <Prefix>{prefix}</Prefix>}
 
-        <StyledTextInput
-          ref={ref}
-          secureTextEntry={!showPassword}
-          onBlur={() => setIsFocused(false)}
-          onFocus={() => setIsFocused(true)}
-          {...rest}
-        />
+          <StyledTextInput
+            ref={ref}
+            secureTextEntry={
+              secureTextEntry ? !passwordIsVisible : passwordIsVisible
+            }
+            onBlur={() => setIsFocused(false)}
+            onFocus={() => setIsFocused(true)}
+            {...rest}
+          />
 
-        {isPassword && (
-          <TouchableOpacity activeOpacity={0.7} onPress={onShowPassword}>
-            {showPassword ? (
-              <EyeClosed size={20} color={colors.gray_500} />
-            ) : (
-              <Eye size={20} color={colors.gray_500} />
-            )}
-          </TouchableOpacity>
-        )}
-      </Container>
+          {secureTextEntry && (
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={handleToggleVisiblePassword}
+            >
+              {!passwordIsVisible ? (
+                <Eye size={20} color={colors.gray_500} />
+              ) : (
+                <EyeClosed size={20} color={colors.gray_500} />
+              )}
+            </TouchableOpacity>
+          )}
+        </Container>
+
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      </View>
     )
   },
 )

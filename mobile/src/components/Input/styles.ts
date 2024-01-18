@@ -40,3 +40,8 @@ export const TextInput = styled.TextInput.attrs(({ theme }) => ({
     color: ${theme.colors.gray_600};
   `}
 `
+
+export const ErrorMessage = styled(Text).attrs(() => ({
+  size: 'xs',
+  color: 'red_300',
+}))``
