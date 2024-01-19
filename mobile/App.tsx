@@ -1,10 +1,15 @@
 import { StatusBar } from 'expo-status-bar'
-import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
 import { ThemeProvider } from 'styled-components/native'
 import theme from './src/theme'
 
-import { Text } from '@components/Typography'
+import { AuthContextProvider } from '@contexts/AuthContext'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+
+import { PortalProvider } from '@gorhom/portal'
+
+import { Routes } from './src/routes'
 
 import {
   useFonts,
@@ -12,6 +17,8 @@ import {
   Karla_400Regular,
   Karla_700Bold,
 } from '@expo-google-fonts/karla'
+
+import { Loading } from '@components/Loading'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -21,20 +28,19 @@ export default function App() {
   })
 
   return (
-    <View style={styles.container}>
-      <ThemeProvider theme={theme}>
-        <StatusBar style="auto" />
-        {fontsLoaded ? <Text>Funcionou</Text> : <ActivityIndicator />}
-      </ThemeProvider>
-    </View>
+    <ThemeProvider theme={theme}>
+      <StatusBar style="dark" translucent backgroundColor="transparent" />
+      <SafeAreaProvider
+        style={{ flex: 1, backgroundColor: theme.colors.gray_100 }}
+      >
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <PortalProvider>
+            <AuthContextProvider>
+              {fontsLoaded ? <Routes /> : <Loading />}
+            </AuthContextProvider>
+          </PortalProvider>
+        </GestureHandlerRootView>
+      </SafeAreaProvider>
+    </ThemeProvider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
