@@ -1,4 +1,4 @@
 const USER_STORAGE = '@marketspace:user'
-const USER_TOKEN = '@marketspace:token'
+const AUTH_TOKEN_STORAGE = '@marketspace:token'
 
-export { USER_STORAGE, USER_TOKEN }
+export { USER_STORAGE, AUTH_TOKEN_STORAGE }
