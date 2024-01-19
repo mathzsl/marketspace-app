@@ -1,23 +1,29 @@
 import { forwardRef, useState } from 'react'
 
 import { TextInput, TextInputProps } from 'react-native'
-import { Container, TextArea } from './styles'
+import { Container, Content, ErrorMessage, TextArea } from './styles'
 
-type TextAreaInputProps = TextInputProps
+type TextAreaInputProps = TextInputProps & {
+  errorMessage?: string
+}
 
 const TextAreaInput = forwardRef<TextInput, TextAreaInputProps>(
-  ({ ...rest }, ref) => {
+  ({ errorMessage, ...rest }, ref) => {
     const [isFocused, setIsFocused] = useState(false)
 
     return (
-      <Container isFocused={isFocused}>
-        <TextArea
-          ref={ref}
-          multiline
-          onBlur={() => setIsFocused(false)}
-          onFocus={() => setIsFocused(true)}
-          {...rest}
-        />
+      <Container>
+        <Content isFocused={isFocused}>
+          <TextArea
+            ref={ref}
+            multiline
+            onBlur={() => setIsFocused(false)}
+            onFocus={() => setIsFocused(true)}
+            {...rest}
+          />
+        </Content>
+
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       </Container>
     )
   },
