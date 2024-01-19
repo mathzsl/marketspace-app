@@ -3,25 +3,34 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import { Container, Content, InfoBox } from './styles'
 
-import { Header } from '@components/Header'
-
 import { Plus } from 'phosphor-react-native'
-import { AdListCard } from '@components/AdListCard'
-import { Text } from '@components/Typography'
+
+import { Header } from '@components/Header'
 import { Picker } from '@components/Picker'
+import { Text } from '@components/Typography'
+import { AdListCard } from '@components/AdListCard'
+
+import { useNavigation } from '@react-navigation/native'
+import { AppNavigatorRoutesProps } from '@routes/app.routes'
 
 const LIST_ITEM_SIZE = Math.floor(Dimensions.get('screen').width - 68) / 2
 
 export function MyAds() {
+  const navigation = useNavigation<AppNavigatorRoutesProps>()
+
   const insets = useSafeAreaInsets()
   const paddingTop = insets.top
+
+  function handleCreateNewAd() {
+    navigation.navigate('createAd')
+  }
 
   return (
     <Container style={{ paddingTop }}>
       <Header
         title="Meus anúncios"
         rightButton={
-          <TouchableOpacity activeOpacity={0.7}>
+          <TouchableOpacity activeOpacity={0.7} onPress={handleCreateNewAd}>
             <Plus />
           </TouchableOpacity>
         }
