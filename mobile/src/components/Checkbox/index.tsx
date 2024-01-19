@@ -1,7 +1,13 @@
 import { useState } from 'react'
 
 import { useTheme } from 'styled-components/native'
-import { CheckButton, CheckLabel, Container, Label } from './styles'
+import {
+  CheckButton,
+  CheckLabel,
+  Container,
+  ErrorMessage,
+  Label,
+} from './styles'
 
 import { Check } from 'phosphor-react-native'
 
@@ -13,10 +19,16 @@ type ValueProps = {
 type CheckBoxProps = {
   options: ValueProps[]
   value?: ValueProps[]
+  errorMessage?: string
   onChange?: (value: ValueProps[]) => void
 }
 
-export function Checkbox({ options, value, onChange }: CheckBoxProps) {
+export function Checkbox({
+  options,
+  value,
+  errorMessage,
+  onChange,
+}: CheckBoxProps) {
   const [selected, setSelected] = useState<ValueProps[]>(value ?? [])
   const checked = selected.map((item) => item.value)
 
@@ -67,6 +79,8 @@ export function Checkbox({ options, value, onChange }: CheckBoxProps) {
           <Label>{option.name}</Label>
         </CheckLabel>
       ))}
+
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </Container>
   )
 }

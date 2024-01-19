@@ -28,3 +28,8 @@ export const CheckButton = styled.TouchableOpacity`
 export const Label = styled(Text).attrs(() => ({
   color: 'gray_600',
 }))``
+
+export const ErrorMessage = styled(Text).attrs(() => ({
+  size: 'xs',
+  color: 'red_300',
+}))``
