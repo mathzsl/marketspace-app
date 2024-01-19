@@ -10,13 +10,19 @@ import { MyAdDetails } from '@screens/MyAdDetails'
 import { MyAdPreview } from '@screens/MyAdPreview'
 import { EditAd } from '@screens/EditAd'
 
+import { ProductFormDTO } from '@dtos/ProductFormDTO'
+
 type AppRoutesProps = {
   home: undefined
   adDetails: undefined
   myAdDetails: undefined
-  myAdPreview: undefined
+  myAdPreview: {
+    product: ProductFormDTO
+  }
   createAd: undefined
-  editAd: undefined
+  editAd: {
+    product: ProductFormDTO
+  }
 }
 
 export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutesProps>
@@ -29,7 +35,6 @@ export function AppRoutes() {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="editAd"
     >
       <Screen name="home" component={TabRoutes} />
       <Screen name="adDetails" component={AdDetails} />
