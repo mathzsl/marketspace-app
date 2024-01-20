@@ -14,8 +14,12 @@ import { ProductFormDTO } from '@dtos/ProductFormDTO'
 
 type AppRoutesProps = {
   home: undefined
-  adDetails: undefined
-  myAdDetails: undefined
+  adDetails: {
+    productId: string
+  }
+  myAdDetails: {
+    productId: string
+  }
   myAdPreview: {
     product: ProductFormDTO
   }
