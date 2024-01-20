@@ -1,7 +1,7 @@
 export const PAYMENT_METHODS = [
-  { value: 'boleto', name: 'Boleto' },
-  { value: 'pix', name: 'Pix' },
-  { value: 'cash', name: 'Dinheiro' },
-  { value: 'card', name: 'Cartão de crédito' },
-  { value: 'deposit', name: 'Depósito bancário' },
+  { key: 'boleto', name: 'Boleto' },
+  { key: 'pix', name: 'Pix' },
+  { key: 'cash', name: 'Dinheiro' },
+  { key: 'card', name: 'Cartão de crédito' },
+  { key: 'deposit', name: 'Depósito bancário' },
 ]
