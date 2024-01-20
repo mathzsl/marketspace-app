@@ -6,6 +6,6 @@ export type ProductFormDTO = {
   is_new: boolean
   price: number
   accept_trade: boolean
-  payment_methods: { value: string; name: string }[]
+  payment_methods: { key: string; name: string }[]
   images: ImageDTO[]
 }
