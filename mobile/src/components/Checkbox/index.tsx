@@ -12,7 +12,7 @@ import {
 import { Check } from 'phosphor-react-native'
 
 type ValueProps = {
-  value: string
+  key: string
   name: string
 }
 
@@ -30,7 +30,7 @@ export function Checkbox({
   onChange,
 }: CheckBoxProps) {
   const [selected, setSelected] = useState<ValueProps[]>(value ?? [])
-  const checked = selected.map((item) => item.value)
+  const checked = selected.map((item) => item.key)
 
   function checkToggle(option: ValueProps) {
     if (selected.includes(option)) {
@@ -59,20 +59,20 @@ export function Checkbox({
   return (
     <Container>
       {options.map((option) => (
-        <CheckLabel key={option.value}>
+        <CheckLabel key={option.key}>
           <CheckButton
             activeOpacity={0.7}
             onPress={() => checkToggle(option)}
             style={{
-              backgroundColor: checked.includes(option.value)
+              backgroundColor: checked.includes(option.key)
                 ? colors.blue_300
                 : 'transparent',
-              borderColor: checked.includes(option.value)
+              borderColor: checked.includes(option.key)
                 ? colors.blue_300
                 : colors.gray_400,
             }}
           >
-            {checked.includes(option.value) && (
+            {checked.includes(option.key) && (
               <Check size={16} color={colors.white} weight="bold" />
             )}
           </CheckButton>
