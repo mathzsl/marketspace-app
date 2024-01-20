@@ -37,7 +37,6 @@ export function Picker({ options, onValueChange }: PickerProps) {
         items={options}
         setOpen={setOpen}
         setValue={setValue}
-        // setItems={setItems}
         showTickIcon={false}
         listItemLabelStyle={{
           color: colors.gray_600,
