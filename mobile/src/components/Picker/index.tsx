@@ -1,20 +1,28 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Container } from './styles'
 import { useTheme } from 'styled-components/native'
 
 import DropDownPicker from 'react-native-dropdown-picker'
 
-export function Picker() {
+type PickerProps = {
+  options: { label: string; value: string }[]
+  onValueChange?: (value: string) => void
+}
+
+export function Picker({ options, onValueChange }: PickerProps) {
   const [open, setOpen] = useState(false)
-  const [value, setValue] = useState(null)
-  const [items, setItems] = useState([
-    { label: 'Todos', value: 'apple' },
-    { label: 'Ativos', value: 'banana' },
-    { label: 'Inativos', value: 'pear' },
-  ])
+  const [value, setValue] = useState('all')
+
+  console.log(value)
 
   const { colors, fonts } = useTheme()
+
+  useEffect(() => {
+    if (onValueChange) {
+      onValueChange(value)
+    }
+  }, [value])
 
   return (
     <Container>
@@ -26,10 +34,10 @@ export function Picker() {
         }}
         open={open}
         value={value}
-        items={items}
+        items={options}
         setOpen={setOpen}
         setValue={setValue}
-        setItems={setItems}
+        // setItems={setItems}
         showTickIcon={false}
         listItemLabelStyle={{
           color: colors.gray_600,
