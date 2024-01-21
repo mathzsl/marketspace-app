@@ -2,7 +2,7 @@ import { useTheme } from 'styled-components/native'
 import { Bank, Barcode, CreditCard, Money, QrCode } from 'phosphor-react-native'
 
 type PaymentIconsProps = {
-  method: 'boleto' | 'pix' | 'cash' | 'card' | 'deposit'
+  method: string
 }
 
 export function PaymentIcons({ method }: PaymentIconsProps) {
