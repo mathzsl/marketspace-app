@@ -100,8 +100,8 @@ export function MyAds() {
             numberOfLines={2}
             style={{ flex: 1 }}
           >
-            {myProducts.length}{' '}
-            {`${myProducts.length !== 1 ? 'anúncios' : 'anúncio'}`}
+            {filteredProducts.length}{' '}
+            {`${filteredProducts.length !== 1 ? 'anúncios' : 'anúncio'}`}
           </Text>
 
           <View style={{ width: 112 }}>
@@ -124,7 +124,10 @@ export function MyAds() {
           }}
           data={filteredProducts}
           keyExtractor={(item) => item.id}
-          contentContainerStyle={{ paddingBottom: 50, gap: 32 }}
+          contentContainerStyle={[
+            !myProducts.length && { flex: 1, justifyContent: 'center' },
+            { paddingBottom: 50, gap: 32 },
+          ]}
           renderItem={({ item }) => (
             <View style={{ width: LIST_ITEM_SIZE }}>
               <AdListCard
@@ -137,6 +140,14 @@ export function MyAds() {
               />
             </View>
           )}
+          ListEmptyComponent={() =>
+            !myProducts.length && (
+              <Text color="gray_400" style={{ textAlign: 'center' }}>
+                Você ainda não possui nenhum anúncio cadastrado; Que tal
+                adicionar um? =)
+              </Text>
+            )
+          }
         />
       </Content>
     </Container>
