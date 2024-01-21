@@ -14,8 +14,6 @@ export function Picker({ options, onValueChange }: PickerProps) {
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState('all')
 
-  console.log(value)
-
   const { colors, fonts } = useTheme()
 
   useEffect(() => {
