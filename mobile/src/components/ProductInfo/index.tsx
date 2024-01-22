@@ -17,10 +17,9 @@ import { api } from '@services/api'
 
 import { Avatar } from '@components/Avatar'
 import { Text } from '@components/Typography'
-import { PaymentIcons } from '@components/PaymentMethod'
+import { PaymentIcons } from '@components/PaymentIcons'
 
 import { ProductDTO } from '@dtos/ProductDTO'
-import { Loading } from '@components/Loading'
 import { priceFormatter } from '@utils/Formatter'
 
 type ProductInfoProps = {
