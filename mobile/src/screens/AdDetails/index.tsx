@@ -79,10 +79,7 @@ export function AdDetails() {
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         <Header goBack />
 
-        <ImageSlider
-          formatImage
-          images={product.product_images.map((item) => item.path)}
-        />
+        <ImageSlider images={product.product_images.map((item) => item.path)} />
 
         <Content>
           <ProductInfo data={product} />
