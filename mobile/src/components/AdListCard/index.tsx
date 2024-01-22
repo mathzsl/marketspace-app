@@ -60,7 +60,7 @@ export function AdListCard({
       <ProductImage
         resizeMode="contain"
         source={{
-          uri: `${api.defaults.baseURL}/images/${data.product_images[0].path}`,
+          uri: `${api.defaults.baseURL}/images/${data.product_images[0]?.path}`,
         }}
       />
 
