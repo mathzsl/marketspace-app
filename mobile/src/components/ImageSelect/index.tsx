@@ -16,28 +16,37 @@ import {
 import { Plus, X } from 'phosphor-react-native'
 import { ImageDTO } from '@dtos/ImageDTO'
 import Toast from 'react-native-toast-message'
+import { api } from '@services/api'
 
 type ImageSelectProps = {
   value?: ImageDTO[]
   size?: number
   errorMessage?: string
   onChange?: (images: ImageDTO[]) => void
+  onObserveImageRemoval?: (image: string) => void
 }
 
 export function ImageSelect({
   value,
   size = 3,
   errorMessage,
+  onObserveImageRemoval,
   onChange,
 }: ImageSelectProps) {
   const [selectedImages, setSelectedImages] = useState<ImageDTO[]>(value ?? [])
 
   const { colors } = useTheme()
 
-  function handleRemoveImage(name: string) {
+  function handleRemoveImage(file: ImageDTO) {
     setSelectedImages((prevState) =>
-      prevState.filter((item) => item.name !== name),
+      prevState.filter((item) => item.uri !== file.uri),
     )
+
+    if (onObserveImageRemoval) {
+      if (!file.uri.startsWith('file')) {
+        onObserveImageRemoval(file.uri)
+      }
+    }
   }
 
   async function handleImageAdd() {
@@ -65,7 +74,7 @@ export function ImageSelect({
 
         const fileExtension = selectedImage.assets[0].uri.split('.').pop()
 
-        const photoFile: ImageDTO = {
+        const photoFile = {
           name: `${Math.random()
             .toString()
             .replace('0.', '')}.${fileExtension}`,
@@ -73,7 +82,7 @@ export function ImageSelect({
           uri: selectedImage.assets[0].uri,
 
           type: `${selectedImage.assets[0].type}/${fileExtension}`,
-        }
+        } as any
 
         setSelectedImages((prevState) => [...prevState, photoFile])
       }
@@ -98,7 +107,9 @@ export function ImageSelect({
             <ImageContainer key={item.name}>
               <Image
                 source={{
-                  uri: item.uri,
+                  uri: item.uri.startsWith('file')
+                    ? item.uri
+                    : `${api.defaults.baseURL}/images/${item.uri}`,
                 }}
                 style={{ width: '100%', height: '100%' }}
                 resizeMode="cover"
@@ -106,7 +117,7 @@ export function ImageSelect({
               />
               <RemoveImage
                 activeOpacity={0.7}
-                onPress={() => handleRemoveImage(item.name)}
+                onPress={() => handleRemoveImage(item)}
               >
                 <X size={12} color={colors.gray_100} />
               </RemoveImage>
