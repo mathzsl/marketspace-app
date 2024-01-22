@@ -8,15 +8,10 @@ import { api } from '@services/api'
 
 type ImageSliderProps = {
   isDisabled?: boolean
-  formatImage?: boolean
   images: string[]
 }
 
-export function ImageSlider({
-  images,
-  formatImage = false,
-  isDisabled = false,
-}: ImageSliderProps) {
+export function ImageSlider({ images, isDisabled = false }: ImageSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const width = Dimensions.get('window').width
@@ -44,7 +39,7 @@ export function ImageSlider({
             >
               <Image
                 source={{
-                  uri: !formatImage
+                  uri: item.startsWith('file')
                     ? item
                     : `${api.defaults.baseURL}/images/${item}`,
                 }}
