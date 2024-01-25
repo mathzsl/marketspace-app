@@ -1,8 +1,9 @@
+import { TextInputProps, TouchableOpacity } from 'react-native'
+
 import { useTheme } from 'styled-components/native'
 import { ButtonBox, Container, Line, TextInput } from './styles'
 
 import { MagnifyingGlass, Sliders } from 'phosphor-react-native'
-import { TextInputProps, TouchableOpacity } from 'react-native'
 
 type SearchInputProps = TextInputProps & {
   onPressSearch: () => void
@@ -19,9 +20,9 @@ export function SearchInput({
   return (
     <Container>
       <TextInput
-        {...rest}
         onSubmitEditing={onPressSearch}
         returnKeyType="search"
+        {...rest}
       />
 
       <ButtonBox>
