@@ -19,7 +19,7 @@ import { useAuth } from '@hooks/useAuth'
 
 import { Avatar } from '@components/Avatar'
 import { Text } from '@components/Typography'
-import { PaymentIcons } from '@components/PaymentMethod'
+import { PaymentIcons } from '@components/PaymentIcons'
 
 import { ProductFormDTO } from '@dtos/ProductFormDTO'
 
