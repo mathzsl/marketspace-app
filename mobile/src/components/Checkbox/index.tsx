@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useTheme } from 'styled-components/native'
 import {
@@ -29,6 +29,8 @@ export function Checkbox({
   errorMessage,
   onChange,
 }: CheckBoxProps) {
+  const { colors } = useTheme()
+
   const [selected, setSelected] = useState<ValueProps[]>(value ?? [])
   const checked = selected.map((item) => item.key)
 
@@ -54,7 +56,11 @@ export function Checkbox({
     setSelected(newValues)
   }
 
-  const { colors } = useTheme()
+  useEffect(() => {
+    if (!value) {
+      setSelected([])
+    }
+  }, [value])
 
   return (
     <Container>
