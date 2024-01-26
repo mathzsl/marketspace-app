@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import {
   Switch as NativeSwitch,
   SwitchProps as NativeSwitchProps,
@@ -6,23 +5,10 @@ import {
 
 import { useTheme } from 'styled-components/native'
 
-type SwitchProps = NativeSwitchProps & {
-  value?: boolean
-  onValueChange: (value: boolean) => void
-}
+type SwitchProps = NativeSwitchProps
 
-export function Switch({ value, onValueChange, ...rest }: SwitchProps) {
-  const [switchValue, setSwitchValue] = useState(value ?? false)
-
+export function Switch({ value, ...rest }: SwitchProps) {
   const { colors } = useTheme()
-
-  function switchToggle() {
-    setSwitchValue((prevState) => !prevState)
-  }
-
-  useEffect(() => {
-    onValueChange(switchValue)
-  }, [switchValue])
 
   return (
     <NativeSwitch
@@ -32,8 +18,7 @@ export function Switch({ value, onValueChange, ...rest }: SwitchProps) {
       }}
       trackColor={{ false: colors.gray_300, true: colors.blue_300 }}
       thumbColor={colors.gray_100}
-      onChange={switchToggle}
-      value={switchValue}
+      value={value}
       ios_backgroundColor={colors.gray_300}
       {...rest}
     />
