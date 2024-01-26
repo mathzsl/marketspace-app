@@ -1,4 +1,5 @@
-import { ReactNode, RefObject, useMemo } from 'react'
+import { ReactNode, RefObject, useCallback, useMemo } from 'react'
+import { TouchableOpacity } from 'react-native'
 
 import { useTheme } from 'styled-components/native'
 import { Container, Header, Title } from './styles'
@@ -9,10 +10,10 @@ import { X } from 'phosphor-react-native'
 
 import {
   BottomSheetBackdrop,
+  BottomSheetBackdropProps,
   BottomSheetModal,
   BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 
 type BottomSheetProps = {
   title: string
@@ -27,20 +28,31 @@ export function BottomSheet({
 }: BottomSheetProps) {
   const { colors } = useTheme()
 
-  const snapPoints = useMemo(() => ['1%', '75%'], [])
+  const snapPoints = useMemo(() => ['75%'], [])
+
+  const renderBackdrop = useCallback(
+    (props: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop
+        {...props}
+        appearsOnIndex={0}
+        disappearsOnIndex={-1}
+      />
+    ),
+    [],
+  )
 
   return (
     <Portal>
       <BottomSheetModalProvider>
         <BottomSheetModal
           ref={bottomSheetModalRef}
-          index={1}
+          index={0}
           snapPoints={snapPoints}
           enablePanDownToClose
           backgroundStyle={{
             backgroundColor: colors.gray_200,
           }}
-          backdropComponent={BottomSheetBackdrop}
+          backdropComponent={renderBackdrop}
           handleIndicatorStyle={{ backgroundColor: colors.gray_400 }}
         >
           <Container>
