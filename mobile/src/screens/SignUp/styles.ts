@@ -3,11 +3,12 @@ import styled from 'styled-components/native'
 
 export const Container = styled.View`
   flex: 1;
+
   background-color: ${({ theme }) => theme.colors.gray_200};
 `
 
 export const Content = styled.View`
-  padding: 65px 48px 0;
+  padding: 36px 48px 0;
 `
 
 export const Title = styled(Text).attrs(() => ({
