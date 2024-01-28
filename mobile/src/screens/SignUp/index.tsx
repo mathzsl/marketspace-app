@@ -36,7 +36,7 @@ const signUpFormSchema = yup.object({
       type: yup.string().required(),
     })
     .default(undefined)
-    .required('asak'),
+    .required('Selecione uma foto de perfil.'),
 
   name: yup.string().required('Informe o nome.'),
 
@@ -150,6 +150,7 @@ export function SignUp() {
                   <UserPhotoSelect
                     onChange={onChange}
                     style={{ alignSelf: 'center' }}
+                    errorMessage={errors.avatar?.message}
                   />
                 )}
                 name="avatar"
