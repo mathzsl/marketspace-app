@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { useTheme } from 'styled-components/native'
 import {
@@ -35,32 +35,26 @@ export function Checkbox({
   const checked = selected.map((item) => item.key)
 
   function checkToggle(option: ValueProps) {
-    if (selected.includes(option)) {
-      const newValues = selected.filter((item) => {
-        return !item.name.includes(option.name)
-      })
+    const isChecked = checked.includes(option.key)
+
+    if (isChecked) {
+      const newValues = selected.filter((item) => item.key !== option.key)
 
       if (onChange) {
         onChange(newValues)
       }
 
-      return setSelected(newValues)
+      setSelected(newValues)
+    } else {
+      const newValues = [...selected, option]
+
+      if (onChange) {
+        onChange(newValues)
+      }
+
+      setSelected(newValues)
     }
-
-    const newValues = [...selected, option]
-
-    if (onChange) {
-      onChange(newValues)
-    }
-
-    setSelected(newValues)
   }
-
-  useEffect(() => {
-    if (!value) {
-      setSelected([])
-    }
-  }, [value])
 
   return (
     <Container>
