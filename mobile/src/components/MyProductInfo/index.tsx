@@ -23,12 +23,16 @@ import { PaymentIcons } from '@components/PaymentIcons'
 
 import { ProductFormDTO } from '@dtos/ProductFormDTO'
 
+import { priceFormatter } from '@utils/Formatter'
+
 type ProductInfoProps = {
   data: ProductFormDTO
 }
 
 export function MyProductInfo({ data }: ProductInfoProps) {
   const { user } = useAuth()
+
+  const formattedPrice = priceFormatter(data.price).replace('R$', '')
 
   return (
     <Container>
@@ -49,7 +53,7 @@ export function MyProductInfo({ data }: ProductInfoProps) {
           <ProductPrice>
             R$
             <Text font="heading" color="blue_300" size="lg">
-              {data.price}
+              {formattedPrice}
             </Text>
           </ProductPrice>
         </ProductInfoHeader>
