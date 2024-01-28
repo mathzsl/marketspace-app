@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -45,8 +46,6 @@ const adCreationFormSchema = yup.object({
 
   price: yup.number().required('Informe o preço do produto.'),
 
-  accept_trade: yup.boolean().required(),
-
   payment_methods: yup
     .array()
     .min(1, 'Digite um pagamento')
@@ -64,12 +63,14 @@ export function CreateAd() {
     resolver: yupResolver(adCreationFormSchema),
   })
 
+  const [accept_trade, setAccept_trade] = useState(false)
+
   const insets = useSafeAreaInsets()
   const paddingTop = insets.top
   const navigation = useNavigation<AppNavigatorRoutesProps>()
 
   function handleGoToPreview(data: AdCreationFormData) {
-    navigation.navigate('newAdPreview', { product: data })
+    navigation.navigate('newAdPreview', { product: { ...data, accept_trade } })
   }
 
   function handleCancelNewAd() {
@@ -166,12 +167,9 @@ export function CreateAd() {
 
               <Label>Aceita troca?</Label>
 
-              <Controller
-                control={control}
-                render={({ field: { onChange } }) => (
-                  <Switch onValueChange={onChange} />
-                )}
-                name="accept_trade"
+              <Switch
+                value={accept_trade}
+                onChange={() => setAccept_trade((prevState) => !prevState)}
               />
 
               <Label>Meios de pagamentos aceitos</Label>
