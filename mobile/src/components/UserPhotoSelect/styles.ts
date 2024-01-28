@@ -45,4 +45,7 @@ export const IconBox = styled.View`
 export const ErrorMessage = styled(Text).attrs(() => ({
   size: 'xs',
   color: 'red_300',
-}))``
+}))`
+  text-align: center;
+  margin-top: 20px;
+`

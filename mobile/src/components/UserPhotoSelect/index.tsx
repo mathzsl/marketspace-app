@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { TouchableOpacityProps, View } from 'react-native'
 
 import { useTheme } from 'styled-components/native'
-import { Container, IconBox, IconBoxWithOutImage } from './styles'
+import { Container, ErrorMessage, IconBox, IconBoxWithOutImage } from './styles'
 
 import Toast from 'react-native-toast-message'
 
@@ -16,10 +16,15 @@ import * as ImagePicker from 'expo-image-picker'
 import { ImageDTO } from '@dtos/ImageDTO'
 
 type UserPhotoProps = TouchableOpacityProps & {
+  errorMessage?: string
   onChange: (image: ImageDTO) => void
 }
 
-export function UserPhotoSelect({ onChange, ...rest }: UserPhotoProps) {
+export function UserPhotoSelect({
+  errorMessage,
+  onChange,
+  ...rest
+}: UserPhotoProps) {
   const { colors } = useTheme()
 
   const [selectedImage, setSelectedImage] = useState('')
@@ -92,6 +97,8 @@ export function UserPhotoSelect({ onChange, ...rest }: UserPhotoProps) {
           <PencilLine size={16} color={colors.gray_200} />
         </IconBox>
       </Container>
+
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </View>
   )
 }
