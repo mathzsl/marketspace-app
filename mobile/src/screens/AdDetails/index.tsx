@@ -25,6 +25,8 @@ import { AppError } from '@utils/AppError'
 import { ProductDTO } from '@dtos/ProductDTO'
 import { priceFormatter } from '@utils/Formatter'
 
+import * as Linking from 'expo-linking'
+
 type AdDetailsRouteParams = {
   productId: string
 }
@@ -64,6 +66,12 @@ export function AdDetails() {
     }
   }
 
+  function handleContact() {
+    const onlyNumber = product.user.tel.replace(/\D/g, '')
+
+    Linking.openURL(`https://wa.me/55${onlyNumber}`)
+  }
+
   useFocusEffect(
     useCallback(() => {
       loadProductDetails()
@@ -100,6 +108,7 @@ export function AdDetails() {
           title="Entrar em contato"
           icon={WhatsappLogo}
           style={{ flex: 1 }}
+          onPress={handleContact}
         />
       </Footer>
     </Container>
